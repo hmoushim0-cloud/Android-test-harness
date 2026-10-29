@@ -86,6 +86,11 @@ jobs:
             > "$GITHUB_WORKSPACE/out/gradle.log" 2>&1
           rc=$?
           echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          if [ $rc -ne 0 ]; then
+            echo "::error::Gradle build failed with exit code $rc"
+            echo "--- gradle.log tail ---"
+            tail -n 60 "$GITHUB_WORKSPACE/out/gradle.log"
+          fi
           grep -E 'BUILD SUCCESSFUL|BUILD FAILED' "$GITHUB_WORKSPACE/out/gradle.log" | tail -1
           grep -cE '^e: ' "$GITHUB_WORKSPACE/out/gradle.log" | sed 's/^/kotlin error lines: /'
           exit $rc
