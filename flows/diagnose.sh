@@ -13,6 +13,8 @@
 #   -f activities=".MainActivity .client.ForgeActivity .client.CargoActivity"
 source "$(dirname "$0")/../scripts/lib.sh"
 
+export SCREEN_SETTLE=9
+
 echo "== screen sweep: $PACKAGE =="
 
 if [ -z "${ACTIVITIES:-}" ]; then
